@@ -11,7 +11,7 @@ namespace CoffeeMachine.Model
         //Enum  ? I need to think about it
         double Cost();
         string Description();
-        string Name();
+        string Name();        
     }
 
 

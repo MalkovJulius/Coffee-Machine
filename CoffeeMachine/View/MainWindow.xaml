@@ -60,7 +60,7 @@
                         Command="{Binding Latte}"></Button>
             </Grid>
             <StackPanel Grid.Row="2">
-                <Label></Label>
+                <Label Content="{Binding Name}"></Label>
                 <ListBox></ListBox>
                 <Label></Label>
             </StackPanel>

@@ -12,7 +12,7 @@ namespace CoffeeMachine.ViewModel
 {
     public class VMCoffee:INotifyPropertyChanged
     {
-        private double amount;
+        private double volume;
         private ICoffee coffee;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -20,26 +20,24 @@ namespace CoffeeMachine.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
-
-        public ICommand Finished
+        /*double Cost();
+        string Description();
+        string Name();*/
+        public string Name
         {
-            get
-            {
-                return new ActionCommand(x=> {
-                    amount = 0;
-                    coffee = null;
-                    });
-            }
-        }     
+            get => (coffee != null) ? coffee.Name() :"";
+        }      
 
-        public double Amount
+        public string Description
         {
-            get => amount;  //привязать к методу сумма каждого класса, через интейфейс
-            set
-            {
-                amount = value;
-                OnPropertyChanged();
-            }
+            get => (coffee != null) ? coffee.Description() : "";
+        }
+
+        public double Cost
+        {
+            get => (coffee != null) ? coffee.Cost() : 0;
+                      
+            //TODO: передать данные volume, для вычисления цены           
         }
 
         public ICommand Espresso
@@ -87,6 +85,16 @@ namespace CoffeeMachine.ViewModel
             get
             {
                 return new ActionCommand(x => coffee = new Macchiato());
+            }
+        }
+
+        public ICommand Finished
+        {
+            get
+            {
+                return new ActionCommand(x => {                    
+                    coffee = null;
+                });
             }
         }
     }

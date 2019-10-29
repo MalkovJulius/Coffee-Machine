@@ -8,6 +8,17 @@ namespace CoffeeMachine.Model
 {
     public class Espresso : ICoffee
     {
+        private const string _name = "Эспрессо";
+        private const string _description = "";
+        private double cost;
+
+        private Dictionary<double, double> _price = new Dictionary<double, double>()
+        {
+            { 0.2, 50 },
+            {0.5, 75 },
+            { 1, 100}
+        };
+
         public double Cost()
         {
             throw new NotImplementedException();
@@ -20,7 +31,7 @@ namespace CoffeeMachine.Model
 
         public string Name()
         {
-            throw new NotImplementedException();
+            return _name;
         }
     }
 }

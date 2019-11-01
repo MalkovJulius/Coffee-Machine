@@ -9,7 +9,7 @@ namespace CoffeeMachine.Model
     public class Espresso : ICoffee
     {
         private const string _name = "Эспрессо";
-        private const string _description = "";
+        private const string _description = "метод приготовления кофе путём прохождения горячей воды под давлением 9 бар через фильтр с молотым кофе";
         private double cost;
 
         private Dictionary<double, double> _price = new Dictionary<double, double>()

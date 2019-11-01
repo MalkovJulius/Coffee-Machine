@@ -11,31 +11,47 @@ using CoffeeMachine.Model;
 namespace CoffeeMachine.ViewModel
 {
     public class VMCoffee:INotifyPropertyChanged
-    {
-        private double volume;
+    {        
         private ICoffee coffee;
+        private string name;
+        private string description;
+        private double cost;
+        private double volume;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
-        /*double Cost();
-        string Description();
-        string Name();*/
+        
         public string Name
         {
-            get => (coffee != null) ? coffee.Name() :"";
+            get => name;
+            set
+            {
+                name = value;
+                OnPropertyChanged();
+            }
         }      
 
         public string Description
         {
-            get => (coffee != null) ? coffee.Description() : "";
+            get => description;
+            set
+            {
+                description = value;
+                OnPropertyChanged();
+            }
         }
 
         public double Cost
         {
-            get => (coffee != null) ? coffee.Cost() : 0;
+            get => cost;
+            set
+            {
+                cost = value;
+                OnPropertyChanged();
+            }
                       
             //TODO: передать данные volume, для вычисления цены           
         }
@@ -44,7 +60,10 @@ namespace CoffeeMachine.ViewModel
         {
             get
             {
-                return new ActionCommand(x => coffee = new Espresso());
+                return new ActionCommand(x => {
+                    coffee = new Espresso();
+                    FillInData(coffee);
+                    });
             }
         }
 
@@ -52,7 +71,10 @@ namespace CoffeeMachine.ViewModel
         {
             get
             {
-                return new ActionCommand(x => coffee = new BlackCoffe());
+                return new ActionCommand(x => {
+                    coffee = new BlackCoffe();
+                    FillInData(coffee);
+                });
             }
         }
 
@@ -60,7 +82,10 @@ namespace CoffeeMachine.ViewModel
         {
             get
             {
-                return new ActionCommand(x => coffee = new Americano());
+                return new ActionCommand(x => {
+                    coffee = new Americano();
+                    FillInData(coffee);
+                });
             }
         }
 
@@ -68,7 +93,10 @@ namespace CoffeeMachine.ViewModel
         {
             get
             {
-                return new ActionCommand(x => coffee = new Cappuccino());
+                return new ActionCommand(x => {
+                    coffee = new Cappuccino();
+                    FillInData(coffee);
+                });
             }
         }
 
@@ -76,15 +104,21 @@ namespace CoffeeMachine.ViewModel
         {
             get
             {
-                return new ActionCommand(x => coffee = new Latte());
+                return new ActionCommand(x => {
+                    coffee = new Latte();
+                    FillInData(coffee);
+                });
             }
         }
 
         public ICommand Macchiato
         {
             get
-            {
-                return new ActionCommand(x => coffee = new Macchiato());
+            {                
+                return new ActionCommand(x => {
+                    coffee = new Macchiato();
+                    FillInData(coffee);
+                });
             }
         }
 
@@ -92,10 +126,26 @@ namespace CoffeeMachine.ViewModel
         {
             get
             {
-                return new ActionCommand(x => {                    
+                return new ActionCommand(x => {
                     coffee = null;
+                    FillInData(coffee);
                 });
             }
+        }
+
+        private void FillInData(ICoffee coffee)
+        {
+            if (coffee == null)
+            {
+                Name = null;
+                Description = null;               
+            }
+            else
+            {
+                Name = coffee.Name();
+                Description = coffee.Name();
+            }            
+            OnPropertyChanged();
         }
     }
 }

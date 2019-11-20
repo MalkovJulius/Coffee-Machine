@@ -5,8 +5,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using CoffeeMachine.Model;
+using CoffeeMachine.Support;
 
 namespace CoffeeMachine.ViewModel
 {
@@ -15,8 +17,20 @@ namespace CoffeeMachine.ViewModel
         private ICoffee coffee;
         private string name;
         private string description;
+
         private double cost;
         private double volume;
+        private List<double> list;
+
+        private readonly CollectionView collectionView; 
+        public VMCoffee()
+        {
+            list = new List<double>();
+            list.Add(0.2);
+            list.Add(0.5);
+            list.Add(0.7);
+            collectionView = new CollectionView(list);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
@@ -24,6 +38,11 @@ namespace CoffeeMachine.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
         
+        public CollectionView CollectionView
+        {
+            get => collectionView;
+        }
+
         public string Name
         {
             get => name;
@@ -51,9 +70,19 @@ namespace CoffeeMachine.ViewModel
             {
                 cost = value;
                 OnPropertyChanged();
+            }                                      
+        }
+
+        public double Volume
+        {
+            get => volume;
+            set
+            {
+                volume = value;
+                if(coffee!=null)
+                    Cost = coffee.Cost(volume);
+                OnPropertyChanged();
             }
-                      
-            //TODO: передать данные volume, для вычисления цены           
         }
 
         public ICommand Espresso
@@ -67,12 +96,12 @@ namespace CoffeeMachine.ViewModel
             }
         }
 
-        public ICommand BlackCoffee
+        public ICommand Doppio
         {
             get
             {
                 return new ActionCommand(x => {
-                    coffee = new BlackCoffe();
+                    coffee = new Doppio();
                     FillInData(coffee);
                 });
             }
@@ -138,12 +167,14 @@ namespace CoffeeMachine.ViewModel
             if (coffee == null)
             {
                 Name = null;
-                Description = null;               
+                Description = null;
+                Cost = 0;
             }
             else
             {
                 Name = coffee.Name();
-                Description = coffee.Name();
+                Description = coffee.Description();
+                Cost = coffee.Cost(volume);
             }            
             OnPropertyChanged();
         }

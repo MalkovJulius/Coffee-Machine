@@ -8,17 +8,8 @@ namespace CoffeeMachine.Model
 {
     interface ICoffee
     {
-        //Enum  ? I need to think about it
-        double Cost();
+        double Cost(double volum);
         string Description();
         string Name();        
     }
-
-
-    //Эспрессо
-    //Американо
-    //Капучино
-    //Латте
-    //Макиато
-    //Чёрный Кофе
 }

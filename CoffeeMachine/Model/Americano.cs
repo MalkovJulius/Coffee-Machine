@@ -9,25 +9,25 @@ namespace CoffeeMachine.Model
     public class Americano : ICoffee
     {
         private const string _name = "Американо";
-        private const string _description = "";
+        private const string _description = "Это классический эспрессо, в который добавляется горячая вода.";
         private double cost;
 
         private Dictionary<double, double> _price = new Dictionary<double, double>()
         {
-            { 0.2, 50 },
-            {0.5, 75 },
-            { 1, 100}
+            { 0.2, 25 },
+            {0.5, 35 },
+            { 0.7, 50}
         };
         
 
-        public double Cost()
+        public double Cost(double volum)
         {
-            throw new NotImplementedException();
+            return _price[volum];
         }
 
         public string Description()
         {
-            throw new NotImplementedException();
+            return _description;
         }
 
         public string Name()

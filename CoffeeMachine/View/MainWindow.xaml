@@ -14,20 +14,29 @@
         <vm:VMCoffee></vm:VMCoffee>
     </Window.DataContext>
 
-    <Window.Resources>        
+    <Window.Resources>
         <BitmapImage x:Key="Coffe" UriSource="/Resources/Coffee.jpeg"></BitmapImage>
         <Image x:Key="Coffee" Source="/Resources/Coffee.jpeg"></Image>
-        <ControlTemplate TargetType="Button" x:Key="btCircle">
-            <Border CornerRadius="100" BorderBrush="Brown"
-                    BorderThickness="5" Background="#996633"
-                    Height="150" Width="150" Margin="20">
-                <ContentControl Margin="5"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontSize="25" FontWeight="Black"
-                                FontStretch="Expanded"></ContentControl>
-            </Border>
-        </ControlTemplate>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="11px"/>
+            <Setter Property="FontWeight" Value="Bold"/>            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center" Name="contentShadow"                   >
+                                <ContentPresenter.RenderTransform>
+                                    <TranslateTransform X="1.0" Y="1.0" />
+                                </ContentPresenter.RenderTransform>
+                            </ContentPresenter>
+                            <ContentPresenter HorizontalAlignment="Center"
+                           VerticalAlignment="Center" Name="content"/>
+                        </Grid>                        
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>       
         <ControlTemplate x:Key="btType" TargetType="Button">
             <Border Margin="10" CornerRadius="25"></Border>
         </ControlTemplate>
@@ -43,7 +52,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            
+
             <StackPanel Grid.Row="0">
                 <Image Source="{StaticResource Coffe}" ></Image>
             </StackPanel>
@@ -57,39 +66,133 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+
                 <Button Grid.Row="0" Grid.Column="0"
-                        Command="{Binding BlackCoffee}"
-                        Content="{StaticResource Coffee}">
+                        Command="{Binding Doppio}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Doppio.png"></ImageBrush>
+                    </Button.Background>
                 </Button>
+                <Label HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       FontWeight="ExtraBlack"
+                       FontSize="35">Doppio</Label>
                 <Button Grid.Row="0" Grid.Column="1"
-                        Command="{Binding Espresso}">                    
+                        Command="{Binding Espresso}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Espresso.png"></ImageBrush>
+                    </Button.Background>
                 </Button>
+                <Label HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       FontWeight="ExtraBlack"
+                       FontSize="35"
+                       Grid.Row="0" Grid.Column="1">Espresso</Label>
                 <Button Grid.Row="0" Grid.Column="2"
-                        Command="{Binding Americano}"></Button>
+                        Command="{Binding Americano}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Americano.png"></ImageBrush>
+                    </Button.Background>
+                </Button>
+                <Label HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       FontWeight="ExtraBlack"
+                       FontSize="35"
+                       Grid.Row="0" Grid.Column="2">Americano</Label>
                 <Button Grid.Row="1" Grid.Column="0"
-                        Command="{Binding Cappuccino}"></Button>
+                        Command="{Binding Cappuccino}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Cappuccino.png"></ImageBrush>
+                    </Button.Background>
+                </Button>
+                <Label HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       FontWeight="ExtraBlack"
+                       FontSize="35"
+                       Grid.Row="1" Grid.Column="0">Cappuccino</Label>
                 <Button Grid.Row="1" Grid.Column="1"
-                        Command="{Binding Macchiato}"></Button>
+                        Command="{Binding Macchiato}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Macchiato.png"></ImageBrush>
+                    </Button.Background>
+                </Button>
+                <Label HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       FontWeight="ExtraBlack"
+                       FontSize="35"
+                       Grid.Row="1" Grid.Column="1">Macchiato</Label>
                 <Button Grid.Row="1" Grid.Column="2"
-                        Command="{Binding Latte}"></Button>
+                        Command="{Binding Latte}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Latte.png"></ImageBrush>
+                    </Button.Background>
+                </Button>
+                <Label HorizontalAlignment="Center"
+                       VerticalAlignment="Bottom"
+                       FontWeight="ExtraBlack"
+                       FontSize="35"
+                       Grid.Row="1" Grid.Column="2">Latte</Label>
             </Grid>
-            <StackPanel Grid.Row="2" Margin="20" Orientation="Horizontal">
-                <Label Content="{Binding Name,
-                    UpdateSourceTrigger=PropertyChanged}"></Label>
-                
-                <Label Content="{Binding Description,
-                    UpdateSourceTrigger=PropertyChanged}"></Label>
-            </StackPanel>
+            <Grid Grid.Row="2" Margin="20">
+                <TextBlock Text="{Binding Name,
+                    UpdateSourceTrigger=PropertyChanged}"
+                       FontWeight="ExtraBlack"
+                       FontSize="25"></TextBlock>
+
+                <TextBlock Text="{Binding Description,
+                    UpdateSourceTrigger=PropertyChanged}"
+                       FontWeight="ExtraBlack"
+                       FontSize="25"
+                       TextWrapping="Wrap"
+                       Margin="0,25,0,0"></TextBlock>
+            </Grid>
+            <Label Grid.Row="2" HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   Margin="15,0,0,55" FontSize="25">Выберите объём</Label>
+            <ComboBox Height="35" Width="70" FontSize="25"
+                      Grid.Row="2" HorizontalAlignment="Left"
+                      VerticalAlignment="Bottom"
+                      Margin="20,0,0,15"             
+                      ItemsSource="{Binding CollectionView}"
+                      SelectedValue="{Binding Volume}">
+           
+            </ComboBox>
+            <TextBlock Text="Цена:"
+                       FontWeight="ExtraBlack"
+                       FontSize="25" Grid.Row="2"
+                       TextWrapping="Wrap"
+                       Margin="50"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="{Binding Cost}"
+                       FontWeight="ExtraBlack"
+                       FontSize="25" Grid.Row="2"
+                       TextWrapping="Wrap"
+                       Margin="25"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Center"></TextBlock>
+
             <StackPanel Grid.Row="3"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center" 
                         Orientation="Horizontal">
-                <Button Content="Buy"
+                <Button Content="КУПИТЬ"
                         Command="{Binding Finished}"
-                        Template="{StaticResource btCircle}"></Button>
-                <Button Content="Cancel"
+                        Width="200" Height="200"
+                        FontSize="30">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Circle.png"></ImageBrush>
+                    </Button.Background>
+                </Button>
+                <!--Template="{StaticResource btCircle}"-->
+                <Button Content="ОТМЕНА"
                         Command="{Binding Finished}"
-                        Template="{StaticResource btCircle}"></Button>
+                        Width="200" Height="200"
+                        FontSize="30">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Circle.png"></ImageBrush>
+                    </Button.Background>                    
+                </Button>
             </StackPanel>
         </Grid>
     </ScrollViewer>

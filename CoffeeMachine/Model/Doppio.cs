@@ -6,27 +6,27 @@ using System.Threading.Tasks;
 
 namespace CoffeeMachine.Model
 {
-    public class BlackCoffe : ICoffee
+    public class Doppio : ICoffee
     {
-        private const string _name = "Чёрный Кофе";
-        private const string _description = "";
+        private const string _name = "Доппио";
+        private const string _description = "Это двойной эспрессо";
         private double cost;
 
         private Dictionary<double, double> _price = new Dictionary<double, double>()
         {
-            { 0.2, 50 },
-            {0.5, 75 },
-            { 1, 100}
+            { 0.2, 75 },
+            {0.5, 100 },
+            { 0.7, 125}
         };
         
-        public double Cost()
+        public double Cost(double volum)
         {
-            throw new NotImplementedException();
+            return _price[volum];
         }
 
         public string Description()
         {
-            throw new NotImplementedException();
+            return _description;
         }
 
         public string Name()

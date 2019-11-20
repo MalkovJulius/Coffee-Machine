@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace CoffeeMachine.ViewModel
+namespace CoffeeMachine.Support
 {
     class ActionCommand : ICommand
     {

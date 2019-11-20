@@ -9,24 +9,24 @@ namespace CoffeeMachine.Model
     public class Espresso : ICoffee
     {
         private const string _name = "Эспрессо";
-        private const string _description = "метод приготовления кофе путём прохождения горячей воды под давлением 9 бар через фильтр с молотым кофе";
+        private const string _description = "Метод приготовления кофе путём прохождения горячей воды под давлением 9 бар через фильтр с молотым кофе";
         private double cost;
 
         private Dictionary<double, double> _price = new Dictionary<double, double>()
         {
             { 0.2, 50 },
             {0.5, 75 },
-            { 1, 100}
+            { 0.7, 100}
         };
 
-        public double Cost()
+        public double Cost(double volum)
         {
-            throw new NotImplementedException();
+            return _price[volum];
         }
 
         public string Description()
         {
-            throw new NotImplementedException();
+            return _description;
         }
 
         public string Name()
